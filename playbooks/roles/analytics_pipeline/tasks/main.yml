@@ -143,6 +143,39 @@
 #     - manage
 #     - manage:start
 
+- name: reload systemd configuration
+  command: systemctl daemon-reload
+  tags:
+    - install
+    - install:configuration
+
+- name: enable Hadoop services
+  service:
+    name: {{ item }}
+    enabled: yes
+    state: started
+  with_items: {{ hadoop_common_services }}
+  tags:
+    - install
+    - install:configuration
+
+- name: stop Hadoop services
+  service:
+    name: {{ item }}
+    state: stopped
+  with_items: {{ hadoop_common_services }}
+  tags:
+    - manage:stop
+
+- name: restart Hadoop services
+  service:
+    name: {{ item }}
+    state: restarted
+  with_items: {{ hadoop_common_services }}
+  tags:
+    - manage:start
+    - manage:restart
+
 - name: Ensure package dir exists in HDFS
   shell: ". {{ HADOOP_COMMON_CONF_DIR }}/hadoop-env.sh && hdfs dfs -mkdir -p /edx-analytics-pipeline/packages/"
   become_user: "{{ hadoop_common_user }}"

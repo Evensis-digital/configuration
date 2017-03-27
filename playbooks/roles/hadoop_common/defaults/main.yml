@@ -121,3 +121,13 @@ mapred_site_config: {}
 yarn_site_config: {}
 HADOOP_CORE_SITE_EXTRA_CONFIG: {}
 HDFS_SITE_EXTRA_CONFIG: {}
+
+# Taking a shortcut here, and defining all the services here,
+# assuming we have a single-node Hadoop cluster.
+hadoop_common_services:
+  - hdfs-namenode
+  - hdfs-datanode
+  - yarn-resourcemanager
+  - yarn-nodemanager
+  - yarn-proxyserver
+  - mapreduce-historyserver
