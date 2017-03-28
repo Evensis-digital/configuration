@@ -151,27 +151,27 @@
 
 - name: enable Hadoop services
   service:
-    name: {{ item }}
+    name: "{{ item }}"
     enabled: yes
     state: started
-  with_items: {{ hadoop_common_services }}
+  with_items: "{{ hadoop_common_services }}"
   tags:
     - install
     - install:configuration
 
 - name: stop Hadoop services
   service:
-    name: {{ item }}
+    name: "{{ item }}"
     state: stopped
-  with_items: {{ hadoop_common_services }}
+  with_items: "{{ hadoop_common_services }}"
   tags:
     - manage:stop
 
 - name: restart Hadoop services
   service:
-    name: {{ item }}
+    name: "{{ item }}"
     state: restarted
-  with_items: {{ hadoop_common_services }}
+  with_items: "{{ hadoop_common_services }}"
   tags:
     - manage:start
     - manage:restart
