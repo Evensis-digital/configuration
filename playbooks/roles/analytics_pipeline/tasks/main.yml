@@ -189,6 +189,10 @@
   tags:
     - install
     - install:app-requirements
+  register: libcp
+  until: libcp|success
+  retries: 6
+  delay: 10
 
 - name: Ensure the data directory exists
   shell: ". {{ HADOOP_COMMON_CONF_DIR }}/hadoop-env.sh && hdfs dfs -mkdir -p {{ ANALYTICS_PIPELINE_HDFS_DATA_DIR }}"
