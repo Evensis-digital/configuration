@@ -2,7 +2,7 @@
 
 # {{ ansible_managed }}
 
-source {{ edx_django_service_home }}/{{ edx_django_service_name }}_env
+source {{ edxapp_app_dir }}/edxapp_env
 COMMAND=$1
 
 case $COMMAND in
@@ -12,17 +12,14 @@ case $COMMAND in
         # Needed to run bower as root. See explanation around 'edx_django_service_user=root'
         echo '{ "allow_root": true }' > /root/.bowerrc
 
-        # TODO Find a way to do this with supervisor
-        nginx
-
         # Docker requires an active foreground task. Tail the logs to appease Docker and
         # provide useful output for development.
-        tail -f {{ edx_django_service_name_devstack_logs | join(" -f ") }}
+        tail -f {{ edxapp_devstack_logs | join(" -f ") }}
         ;;
     open)
-        . {{ edx_django_service_nodeenv_bin }}/activate
-        . {{ edx_django_service_venv_bin_dir }}/activate
-        cd {{ edx_django_service_code_dir }}
+        . {{ edxapp_nodeenv_bin }}/activate
+        . {{ edxapp_venv_bin }}/activate
+        cd {{ edxapp_code_dir }}
 
         /bin/bash
         ;;

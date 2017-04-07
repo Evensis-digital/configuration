@@ -9,10 +9,9 @@ migrate_db: false
 #devstack: true
 mongo_enable_journal: false
 edx_platform_version: 'master'
+edxapp_npm_production: "no"
 
-# TODO Update gunicorn for edxapp to use this.
-#edx_django_service_gunicorn_extra: '--reload'
-edx_django_service_gunicorn_extra: ''
+EDXAPP_LMS_GUNICORN_EXTRA_CONF: 'reload = True'
 
 EDXAPP_NO_PREREQ_INSTALL: 0
 COMMON_SSH_PASSWORD_AUTH: "yes"
