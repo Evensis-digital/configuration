@@ -689,9 +689,7 @@ edxapp_devstack_logs:
   - "{{ supervisor_log_dir }}/lms-stdout.log"
   - "{{ supervisor_log_dir }}/lms-stderr.log"
 
-# Be explicit about where npm should store its package cache, and only install
-# packages which are appropriate for this environment
-edxapp_npm_cache: "{{ edxapp_app_dir }}/.npm"
+# Only install packages which are appropriate for this environment
 edxapp_npm_production: "yes"
 
 # TODO: This can be removed once VPC-122 is resolved

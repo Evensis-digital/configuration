@@ -43,24 +43,6 @@
     - install
     - install:base
 
-- name: determine if there is already a git checkout
-  stat:
-    path: "{{ edxapp_code_dir }}/.git"
-  register: edxapp_git_dir
-  tags:
-    - install
-    - install:code
-
-- name: revert any local changes to .npmrc
-  shell: git checkout -- .npmrc
-  args:
-    chdir: "{{ edxapp_code_dir }}"
-  become_user: "{{ edxapp_user }}"
-  when: edxapp_git_dir.stat.exists == True
-  tags:
-    - install
-    - install:code
-
 # Do A Checkout
 - name: checkout edx-platform repo into {{ edxapp_code_dir }}
   git:
@@ -79,25 +61,6 @@
 - name: git clean after checking out edx-platform
   shell: cd {{ edxapp_code_dir }} && git clean -xdf
   become_user: "{{ edxapp_user }}"
-  tags:
-    - install
-    - install:code
-
-# edx-platform now has its own .npmrc, make sure it has the values we need
-- name: update edx-platform .npmrc cache
-  lineinfile:
-    dest: "{{ edxapp_code_dir }}/.npmrc"
-    regexp: "^cache="
-    line: "cache={{ edxapp_npm_cache }}"
-  tags:
-    - install
-    - install:code
-
-- name: update edx-platform .npmrc registry
-  lineinfile:
-    dest: "{{ edxapp_code_dir }}/.npmrc"
-    regexp: "^registry="
-    line: "registry={{ COMMON_NPM_MIRROR_URL }}"
   tags:
     - install
     - install:code
