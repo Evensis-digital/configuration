@@ -6,7 +6,6 @@ EDXAPP_MONGO_HOSTS:
   - "edx.devstack.mongo"
 
 migrate_db: false
-#devstack: true
 mongo_enable_journal: false
 edx_platform_version: 'master'
 edxapp_npm_production: "no"
