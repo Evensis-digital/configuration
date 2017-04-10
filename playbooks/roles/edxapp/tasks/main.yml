@@ -43,6 +43,7 @@
     owner: "{{ supervisor_user }}"
     group: "{{ common_web_user }}"
     mode: 0744
+  when: devstack is defined and devstack
   tags:
     - devstack
     - devstack:install

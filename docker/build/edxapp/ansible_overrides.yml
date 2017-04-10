@@ -5,6 +5,7 @@ EDXAPP_MYSQL_HOST: "edx.devstack.mysql"
 EDXAPP_MONGO_HOSTS:
   - "edx.devstack.mongo"
 
+devstack: true
 migrate_db: false
 mongo_enable_journal: false
 edx_platform_version: 'master'
