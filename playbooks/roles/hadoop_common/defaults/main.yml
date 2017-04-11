@@ -47,9 +47,9 @@ hadoop_common_env: "{{ HADOOP_COMMON_HOME }}/hadoop_env"
 #
 # OS packages
 #
-
-# Try replacing llvm-gcc with llvm and gcc separately?  Others seem to be present.
-#   - llvm-gcc
+# Include procps to get fix to
+#  https://bugs.launchpad.net/ubuntu/+source/procps/+bug/1637026, which
+#  causes hadoop jobs to fail on Xenial.
 
 hadoop_common_debian_pkgs:
   - gcc
@@ -61,6 +61,7 @@ hadoop_common_debian_pkgs:
   - libtool
   - zlib1g-dev
   - maven
+  - procps
 
 hadoop_common_redhat_pkgs: []
 
@@ -122,8 +123,8 @@ yarn_site_config: {}
 HADOOP_CORE_SITE_EXTRA_CONFIG: {}
 HDFS_SITE_EXTRA_CONFIG: {}
 
-# Taking a shortcut here, and defining all the services here,
-# assuming we have a single-node Hadoop cluster.
+# Define all the services here, assuming we have a single-node Hadoop
+# cluster.
 hadoop_common_services:
   - hdfs-namenode
   - hdfs-datanode
